@@ -1,0 +1,297 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "My API",
+      "version": "1.0.0",
+      "description": "API documentation"
+    },
+    "tags": [
+        {
+          "name": "Employees",
+          "description": ""
+        },
+        {
+          "name": "Directs",
+          "description": ""
+        }
+      ],
+    "paths": {
+        "/api/employees/getEmployee": {
+          "post": {
+            "summary": "Get an employee by email",
+            "description": "if id is provided in the body, it fetches the employee details of that employee otherwise it gives the employee details of the users/employee who made the api call",
+            "tags": ["Employees"],
+            "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "email",
+                          "description": "Email address of the employee"
+                        }
+                      },
+                      "required": ["id"]
+                    }
+                  }
+                },
+                "required": true
+              },
+            "responses": {
+              "200": {
+                "description": "Success",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/employee"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/directs/getDirects": {
+            "post": {
+              "summary": "Get list of direct reports to a manager",
+              "tags": ["Directs"],
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "managerId": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "Email address of the employee(Manager)"
+                          }
+                        },
+                        "required": ["managerId"]
+                      }
+                    }
+                  },
+                  "required": true
+                },
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/api/employees/postemployeesinbulk": {
+            "post": {
+              "summary": "Post employees in bulk",
+              "tags": ["Employees"],
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "employees": {
+                            "type": "array",
+                            "description": "List of employees to be created",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "email": {
+                                  "type": "string",
+                                  "format": "email"
+                                },
+                                "firstName": {
+                                  "type": "string"
+                                },
+                                "jobTitle": {
+                                  "type": "string"
+                                },
+                                "lastName": {
+                                  "type": "string"
+                                },
+                                "managerEmail": {
+                                  "type": "string",
+                                  "format": "email"
+                                },
+                                "startDate": {
+                                  "type": "string",
+                                  "format": "date"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": ["employees"]
+                      }
+                    }
+                  },
+                  "required": true
+                },
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "api/companies/getcompany": {
+            "get": {
+              "summary": "Get company details | Company name in small camel case format is the company id",
+              "tags": ["Companies"],
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "companyId": {
+                            "type": "string",
+                            "description": "Company name in small camel case format is the company id"
+                          }
+                        },
+                        "required": ["id"]
+                      }
+                    }
+                  },
+                  "required": true
+              },
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "api/companies/createcompany": {
+            "post": {
+              "summary": "Create company",
+              "tags": ["Companies"],
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "companyName": {
+                            "type": "string"
+                          },
+                          "legalStructure": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "phoneNumber": {
+                            "type": "string",
+                            "format": "phone" 
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "website": {
+                            "type": "string",
+                            "format": "uri" 
+                          },
+                          "taxId": {
+                            "type": "string"
+                          },
+                          "hrContact": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "string"
+                              },
+                              "contactInformation": {
+                                "type": "string" 
+                              }
+                            }
+                          }
+                        },
+                        "required": ["id"]
+                      }
+                    }
+                  },
+                  "required": true
+              },
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      },
+      "components": {
+        "schemas": {
+          
+          "employee": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "jobTitle": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "managerEmail": {
+                "type": "string",
+                "format": "email"
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        }
+      }
+  }
+  
